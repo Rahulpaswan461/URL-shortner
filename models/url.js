@@ -13,7 +13,7 @@ const UrlSchema = new mongoose.Schema({
         //we are storing the id of which use has created this id that
         // is the reason we have use the below type
          type:mongoose.Schema.Types.ObjectId,
-         ref:"user",
+         ref:"users",
       }
 
 },{ timestamps: true}

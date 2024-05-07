@@ -13,6 +13,7 @@ async function HandlegenerateNewShortURL(req,res){
          visitedHistory:[],
          createdBy : req.user._id,
        })
+       // the use id is comming from the place where we have apply the middleware functionality
 
        return  res.render("home",{
                id:shortID,

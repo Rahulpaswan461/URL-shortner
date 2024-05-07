@@ -6,7 +6,7 @@ const UserRoute = require("./routes/user")
 const path = require("node:path")
 const staticRoute = require("./routes/staticRouter");
 const cookieParser = require("cookie-parser");
-const {restrictToLoggedinUserOnly,checkAuth} = require("./middlewares/auth")
+const {checkForAuthentication,restrictTo} = require("./middlewares/auth")
 
 
 const app = express();
@@ -22,10 +22,12 @@ app.set("views",path.resolve("./views"))
 app.use(express.json())
 app.use(express.urlencoded({extended:false}))
 app.use(cookieParser())
+app.use(checkForAuthentication)
+// the above will run for the every render
 
-app.use('/url',restrictToLoggedinUserOnly,urlRouter)
+app.use('/url',restrictTo(["Normal"]),urlRouter)
 app.use('/users',UserRoute)
-app.use('/',checkAuth,staticRoute)
+app.use('/',staticRoute)
 
 app.listen(PORT,()=>{
       console.log("Server is running at Port 8001")
